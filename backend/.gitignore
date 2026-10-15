@@ -1,0 +1,32 @@
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Local Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+
+# Local SQLite Database (never commit credentials or local dev db)
+db.sqlite3
+db.sqlite3-journal
+*.sqlite3
+
+# Collected static files & uploaded media
+staticfiles/
+media/
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
