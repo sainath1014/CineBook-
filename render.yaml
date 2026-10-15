@@ -48,15 +48,12 @@ services:
   # ----------------------------------------------------------------------------
   # 2. React + Vite Frontend Static Site
   # ----------------------------------------------------------------------------
-  # NOTE: In Render Blueprint syntax, Static Sites are defined using `type: web`
-  # combined with `runtime: static`. Render rejects `type: static` with an
-  # unknown type error.
+  # NOTE: Static sites on Render are deployed globally across Render's CDN.
+  # Therefore, static sites cannot have a `region` or a `plan` specified.
   # ----------------------------------------------------------------------------
   - type: web
     name: cinebook-frontend
     runtime: static
-    region: oregon
-    plan: free
     rootDir: frontend
     buildCommand: "npm install && npm run build"
     staticPublishPath: "./dist"
