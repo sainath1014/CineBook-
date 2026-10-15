@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { showApi, bookingApi } from '../api/client';
+import { showApi, bookingApi, extractResults } from '../api/client';
 import { useAuth } from '../context/AuthContext';
 import SeatMap from '../components/SeatMap';
 import DateTimeModal from '../components/DateTimeModal';
@@ -51,9 +51,8 @@ const BookingPage = () => {
       setShow(showRes.data);
       setSeatData(seatsRes.data);
 
-      // Load sibling shows for the same movie to enable the date/time modal
       const movieShowsRes = await showApi.getAll({ movie: showRes.data.movie.id });
-      setAllMovieShows(movieShowsRes.data.results || movieShowsRes.data);
+      setAllMovieShows(extractResults(movieShowsRes));
     } catch (err) {
       console.error('Failed to load show seats:', err);
       setHoldError('Unable to load seat availability. Please refresh.');

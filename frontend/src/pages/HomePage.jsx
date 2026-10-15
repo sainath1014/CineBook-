@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { movieApi } from '../api/client';
+import { movieApi, extractResults } from '../api/client';
 import MoviePoster from '../components/MoviePoster';
 import TrailerModal from '../components/TrailerModal';
 import {
@@ -100,7 +100,7 @@ const HomePage = ({ selectedCity }) => {
           search: searchQuery,
           city: selectedCity,
         });
-        const list = res.data.results || res.data || [];
+        const list = extractResults(res);
         setMovies(list);
       } catch (err) {
         console.error('Error fetching movies:', err);

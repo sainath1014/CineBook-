@@ -202,6 +202,11 @@ else:
         allowed_cors_list.append(frontend_url_env.strip())
     CORS_ALLOWED_ORIGINS = list(dict.fromkeys(allowed_cors_list))
 
+# Allow any frontend running on Render (*.onrender.com)
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https:\/\/.*\.onrender\.com$",
+]
+
 # CSRF Trusted Origins for admin & authenticated requests
 csrf_trusted_env = os.environ.get('CSRF_TRUSTED_ORIGINS', '')
 csrf_list = [
@@ -209,6 +214,7 @@ csrf_list = [
     'http://127.0.0.1:5173',
     'http://localhost:8000',
     'http://127.0.0.1:8000',
+    'https://*.onrender.com',
 ]
 if csrf_trusted_env:
     csrf_list.extend([origin.strip() for origin in csrf_trusted_env.split(',') if origin.strip()])

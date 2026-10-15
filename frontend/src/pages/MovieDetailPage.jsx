@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { movieApi, showApi } from '../api/client';
+import { movieApi, showApi, extractResults } from '../api/client';
 import { Star, Clock, Calendar, MapPin, Ticket, Play, ArrowLeft, Volume2, Film } from 'lucide-react';
 import MoviePoster from '../components/MoviePoster';
 import TrailerModal from '../components/TrailerModal';
@@ -23,7 +23,7 @@ const MovieDetailPage = ({ selectedCity }) => {
           showApi.getAll({ movie: id, city: selectedCity }),
         ]);
         setMovie(movieRes.data);
-        const showList = showsRes.data.results || showsRes.data;
+        const showList = extractResults(showsRes);
         setShows(showList);
 
         // Default selected date to first available show date or today

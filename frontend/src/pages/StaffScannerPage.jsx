@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import { staffApi } from '../api/client';
+import { staffApi, extractResults } from '../api/client';
 import { useAuth } from '../context/AuthContext';
 import { Html5Qrcode } from 'html5-qrcode';
 import {
@@ -38,7 +38,7 @@ const StaffScannerPage = () => {
   const loadRecentScans = async () => {
     try {
       const res = await staffApi.getScans();
-      setRecentScans(res.data || []);
+      setRecentScans(extractResults(res));
     } catch (err) {
       console.error('Failed to load recent scans:', err);
     }

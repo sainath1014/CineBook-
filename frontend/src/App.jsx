@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import { locationApi } from './api/client';
+import { locationApi, extractResults } from './api/client';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
@@ -33,7 +33,7 @@ function App() {
     const fetchCities = async () => {
       try {
         const res = await locationApi.getCities();
-        const cityList = res.data.results || res.data;
+        const cityList = extractResults(res);
         setCities(cityList);
         if (cityList.length > 0) {
           const savedCity = localStorage.getItem('cinebook_selected_city');

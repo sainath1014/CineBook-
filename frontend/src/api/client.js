@@ -1,9 +1,24 @@
 import axios from 'axios';
 
+// Deployed Render backend URL
+const DEPLOYED_API_BASE_URL = 'https://cinebook-backend-gi18.onrender.com/api';
+
 const rawBaseUrl = import.meta.env.VITE_API_BASE_URL;
 export const API_BASE_URL = rawBaseUrl
   ? (rawBaseUrl.endsWith('/api') ? rawBaseUrl : rawBaseUrl.replace(/\/+$/, '') + '/api')
-  : 'http://127.0.0.1:8000/api';
+  : DEPLOYED_API_BASE_URL;
+
+/**
+ * Safely extracts an array from either a standard array response or a
+ * paginated DRF response ({ count: N, next: null, previous: null, results: [...] }).
+ */
+export const extractResults = (responseOrData) => {
+  if (!responseOrData) return [];
+  const data = responseOrData.data !== undefined ? responseOrData.data : responseOrData;
+  if (Array.isArray(data)) return data;
+  if (Array.isArray(data?.results)) return data.results;
+  return [];
+};
 
 const api = axios.create({
   baseURL: API_BASE_URL,

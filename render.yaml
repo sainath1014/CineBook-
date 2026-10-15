@@ -64,4 +64,4 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_API_BASE_URL
-        value: "https://cinebook-backend.onrender.com/api"
+        value: "https://cinebook-backend-gi18.onrender.com/api"

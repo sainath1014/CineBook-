@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { bookingApi } from '../api/client';
+import { bookingApi, extractResults } from '../api/client';
 import { useAuth } from '../context/AuthContext';
 import TicketCard from '../components/TicketCard';
 import MoviePoster from '../components/MoviePoster';
@@ -22,7 +22,7 @@ const CustomerDashboard = () => {
     setLoading(true);
     try {
       const res = await bookingApi.getMyBookings();
-      const list = res.data.results || res.data || [];
+      const list = extractResults(res);
       setBookings(list);
       if (list.length > 0) {
         // Keep currently selected or select first
